@@ -34,8 +34,8 @@ export default function SendCampaignPage() {
         if (data.data.campaigns && data.data.campaigns.length > 0) {
           setSelected(data.data.campaigns[0].id);
         }
-      } catch (err: any) {
-        setError(err.message);
+      } catch (err: unknown) {
+        setError(err instanceof Error ? err.message : "An error occurred");
       } finally {
         setFetching(false);
       }

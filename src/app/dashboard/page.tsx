@@ -14,11 +14,7 @@ export default function DashboardPage() {
     }
   }, [router]);
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    router.push("/login");
-  };
+  // Logout functionality moved to Sidebar component
 
   return (
     <div className="flex flex-col gap-6">

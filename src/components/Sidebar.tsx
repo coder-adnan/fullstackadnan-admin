@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 const EMAILS_SUBMENU = [
   { label: "Create Campaign", href: "/dashboard/emails/create" },
@@ -13,10 +13,7 @@ export default function Sidebar() {
   const [collapsed, setCollapsed] = useState(false);
   const [emailsOpen, setEmailsOpen] = useState(false);
   const [showLogout, setShowLogout] = useState(false);
-  const router =
-    typeof window !== "undefined"
-      ? require("next/navigation").useRouter()
-      : null;
+  const router = useRouter();
 
   return (
     <aside

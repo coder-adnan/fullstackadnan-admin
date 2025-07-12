@@ -11,6 +11,9 @@ interface Blog {
   createdAt: string;
   updatedAt: string;
   reviewedByUser?: { id: string; name: string };
+  imageUrl?: string;
+  excerpt?: string;
+  content?: string;
 }
 
 const TABS = [
@@ -30,7 +33,7 @@ export default function BlogsPage() {
   const [pageSize, setPageSize] = useState(8);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [showModal, setShowModal] = useState(false);
-  const [selectedBlog, setSelectedBlog] = useState<any>(null);
+  const [selectedBlog, setSelectedBlog] = useState<Blog | null>(null);
 
   const fetchBlogs = async () => {
     setLoading(true);
@@ -43,8 +46,8 @@ export default function BlogsPage() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || "Failed to fetch blogs");
       setBlogs(data.data.posts || []);
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "An error occurred");
     } finally {
       setLoading(false);
     }
@@ -156,8 +159,8 @@ export default function BlogsPage() {
       if (!res.ok) throw new Error(data.message || "Action failed");
       // Refresh the blog list
       fetchBlogs();
-    } catch (err: any) {
-      alert(err.message);
+    } catch (err: unknown) {
+      alert(err instanceof Error ? err.message : "An error occurred");
     }
   };
 
